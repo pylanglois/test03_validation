@@ -4,7 +4,7 @@ metadata:
 components:
   - name: image-build
     image:
-      imageName: medics-test
+      imageName: cook-test:latest
       dockerfile:
         uri: docker/Dockerfile
         buildContext: .
@@ -12,16 +12,16 @@ components:
   - name: kubernetes-deploy
     attributes:
       deployment/replicas: 1
-      deployment/cpuLimit: '100m'
-      deployment/cpuRequest: 10m
-      deployment/memoryLimit: 100Mi
-      deployment/memoryRequest: 50Mi
+      # deployment/cpuLimit: '100m'
+      # deployment/cpuRequest: 10m
+      # deployment/memoryLimit: 100Mi
+      # deployment/memoryRequest: 50Mi
       deployment/container-port: 8081
     kubernetes:
       uri: le_deploy.yaml
       endpoints:
-      - name: http-8081
-        targetPort: 8081
+      - name: http-8080
+        targetPort: 8080
         path: /
 commands:
   - id: build-image

@@ -1,6 +1,21 @@
 schemaVersion: 2.2.0
 metadata:
   name: medics-test
+  projectType: Python
+  displayName: medics-test
+  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
+  description:
+    'cook test test.'
+  language: Python
+  version: 0.0.1
+  provider: Red Hat
+  tags:
+    - Python
+    - Pip
+    - Flask
+  supportUrl: https://google.ca
+  attributes:
+    alpha.dockerimage-port: 8080
 components:
   - name: image-build
     image:

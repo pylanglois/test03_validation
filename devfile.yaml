@@ -3,7 +3,6 @@ metadata:
   name: medics-test
 components:
   - name: image-build
-    icon: https://i.ibb.co/vdNSKM8/0841-Medics-Logo-Final-petit.jpg
     image:
       imageName: medics-test
       dockerfile:

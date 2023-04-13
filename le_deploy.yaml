@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: medics-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medics-test
+  template:
+    metadata:
+      labels:
+        app: medics-test
+    spec:
+      containers:
+        - name: medics-test
+          image: medics-test
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: medics-test
+          #command: [ "python" ]
+          #args: [ "/projects/s3_listing.py" ]
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: medics-test
+spec:
+  strategy: Recreate
+ports:
+  - name: mongo-tcp
+    port: 8081
+    protocol: TCP
+    targetPort: 8081
+selector:
+  app: medics-test

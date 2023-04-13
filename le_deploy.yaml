@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
         - name: medics-test
-          image: medics-test
+          image: cook-test:latest
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           envFrom:
             - secretRef:
-                name: medics-test
+                name: medics-ceph
           #command: [ "python" ]
           #args: [ "/projects/s3_listing.py" ]
 ---
@@ -32,9 +32,9 @@ metadata:
 spec:
   strategy: Recreate
 ports:
-  - name: mongo-tcp
-    port: 8081
+  - name: http-8080
+    port: 8080
     protocol: TCP
-    targetPort: 8081
+    targetPort: 8080
 selector:
   app: medics-test

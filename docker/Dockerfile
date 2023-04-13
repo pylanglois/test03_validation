@@ -3,6 +3,9 @@
 FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
+EXPOSE 8080/tcp
+ENV FLASK_PORT=8080
+
 RUN apt-get update && \
     apt-get install -y apt-utils fuse git nano wget unzip rclone
     
@@ -21,7 +24,7 @@ RUN apt-get update && \
     WORKDIR /home
     RUN wget -c https://bootstrap.pypa.io/get-pip.py -O get-pip.py
     RUN python3.8 get-pip.py && rm -f get-pip.py
-    #ADD requirements.txt .
-    #RUN pip install -r requirements.txt
+    ADD requirements.txt .
+    RUN pip install -r requirements.txt
 
 

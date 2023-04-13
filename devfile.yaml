@@ -1,0 +1,41 @@
+schemaVersion: 2.2.0
+metadata:
+  name: medics-test
+components:
+  - name: image-build
+    icon: https://i.ibb.co/vdNSKM8/0841-Medics-Logo-Final-petit.jpg
+    image:
+      imageName: medics-test
+      dockerfile:
+        uri: docker/Dockerfile
+        buildContext: .
+        rootRequired: false
+  - name: kubernetes-deploy
+    attributes:
+      deployment/replicas: 1
+      deployment/cpuLimit: '100m'
+      deployment/cpuRequest: 10m
+      deployment/memoryLimit: 100Mi
+      deployment/memoryRequest: 50Mi
+      deployment/container-port: 8081
+    kubernetes:
+      uri: le_deploy.yaml
+      endpoints:
+      - name: http-8081
+        targetPort: 8081
+        path: /
+commands:
+  - id: build-image
+    apply:
+      component: image-build
+  - id: deployk8s
+    apply:
+      component: kubernetes-deploy
+  - id: deploy
+    composite:
+      commands:
+        - build-image
+        - deployk8s
+      group:
+        kind: deploy
+        isDefault: true
